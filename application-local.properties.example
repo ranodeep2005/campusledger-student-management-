@@ -1,0 +1,12 @@
+# ============================================================
+# CampusLedger – Local Database Configuration Example
+# ============================================================
+# Copy this file to: src/main/resources/application-local.properties
+# Then run with: --spring.profiles.active=local
+# NEVER commit application-local.properties to Git.
+# ============================================================
+
+spring.datasource.url=jdbc:mysql://localhost:3306/studentdb?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+spring.datasource.username=root
+spring.datasource.password=YOUR_MYSQL_PASSWORD_HERE
+spring.jpa.hibernate.ddl-auto=update
