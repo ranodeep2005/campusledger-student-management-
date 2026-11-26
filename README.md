@@ -82,6 +82,7 @@ CampusLedger/
 ├── API_TESTING.md
 ├── PROJECT_STATUS.md
 ├── EXPERIMENT_CHECKLIST.md
+├── FRONTEND_GUIDE.md
 ├── VIVA_PREPARATION.md
 └── src/
     ├── main/
@@ -107,10 +108,22 @@ CampusLedger/
     │   │       ├── CourseNotFoundException.java
     │   │       └── GlobalExceptionHandler.java
     │   └── resources/
-    │       └── application.properties
+    │       ├── application.properties
+    │       └── static/
+    │           ├── index.html
+    │           ├── login.html
+    │           ├── css/
+    │           │   └── style.css
+    │           └── js/
+    │               ├── auth.js
+    │               ├── api.js
+    │               ├── app.js
+    │               ├── students.js
+    │               └── courses.js
     └── test/
         ├── java/in/ranodeep/campusledger/
-        │   └── StudentApiTest.java
+        │   ├── StudentApiTest.java
+        │   └── FrontendAndCourseApiTest.java
         └── resources/
             └── application-test.properties
 ```
@@ -263,6 +276,7 @@ mvn test
 Spring Security 6 is configured in `SecurityConfig.java`:
 
 - **Public:** `GET /hello` — no authentication
+- **Static Assets:** `/`, `/index.html`, `/login.html`, `/favicon.ico`, `/error`, `/css/**`, `/js/**`, `/images/**`, and Spring Boot common static locations — no authentication
 - **Protected:** `/students/**`, `/courses/**` — HTTP Basic Auth required
 - **Users:** Defined in-memory with BCrypt-hashed passwords
 - **CSRF:** Disabled for REST API testing
@@ -309,10 +323,10 @@ After completing this project, I am able to:
 | Limitation | Future Improvement |
 |------------|-------------------|
 | In-memory user store for security | Database-backed UserDetailsService |
-| No frontend | Add React or Angular frontend |
 | Basic pagination | Add Swagger/OpenAPI documentation |
 | Single DB profile | Add Docker Compose for easy setup |
 | No JWT | Upgrade to JWT-based authentication |
+| Course reassignment not supported | Allow changing student–course link via API |
 
 ---
 

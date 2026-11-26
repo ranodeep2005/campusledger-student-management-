@@ -16,7 +16,7 @@ import org.springframework.security.web.SecurityFilterChain;
  * SecurityConfig – Custom Spring Security configuration.
  *
  * Experiment 9:
- *   - Public endpoint  : GET /hello (no auth required)
+ *   - Public endpoints : GET /hello, static assets (HTML/CSS/JS)
  *   - Protected endpoints: /students/**, /courses/** (HTTP Basic Auth required)
  *
  * Credentials are defined here in-memory for lab demonstration.
@@ -37,15 +37,22 @@ public class SecurityConfig {
      *
      * httpBasic() enables HTTP Basic Authentication (username:password in request header).
      * csrf().disable() – disabled for REST API testing (cURL / Postman).
+     *
+     * Static resources (HTML, CSS, JS) and the login page are permitted
+     * so the custom frontend can load without a browser auth prompt.
+     * API endpoints under /students and /courses remain protected.
      */
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
-                // Public endpoint – accessible without credentials
+                // Static frontend assets – must load without auth
+                .requestMatchers("/", "/index.html", "/login.html", "/favicon.ico").permitAll()
+                .requestMatchers("/css/**", "/js/**").permitAll()
+                // Public API endpoint – accessible without credentials
                 .requestMatchers(HttpMethod.GET, "/hello").permitAll()
-                // All /students and /courses endpoints require authentication
+                // All /students and /courses API endpoints require authentication
                 .requestMatchers("/students/**").authenticated()
                 .requestMatchers("/courses/**").authenticated()
                 // Anything else – also authenticated (safe default)

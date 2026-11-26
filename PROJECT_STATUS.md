@@ -1,7 +1,9 @@
 # Project Status – CampusLedger
 # Author: Ranodeep Malik | Last Updated: 2026-11-26
 
-## Overall Status: ✅ IMPLEMENTATION COMPLETE – PENDING COMPILE VERIFICATION
+## Overall Status: ✅ TESTS & PACKAGE VERIFIED (13/13 TESTS PASSED)
+
+**Last Test & Package Run:** 2026-11-26 | `mvn -o clean package` → Tests run: 13, Failures: 0, Errors: 0, Skipped: 0 | `BUILD SUCCESS` (`target/campusledger-1.0.0.jar`)
 
 ---
 
@@ -43,23 +45,23 @@
 - **Files:** GlobalExceptionHandler.java, Student.java (@NotBlank/@Email), Course.java
 
 ### Experiment 8 – API Testing
-- **Status:** ✅ Implemented
-- **Files:** StudentApiTest.java (10 tests), API_TESTING.md (all cURL commands)
+- **Status:** ✅ Implemented & Verified
+- **Files:** StudentApiTest.java (10 tests), FrontendAndCourseApiTest.java (3 tests), API_TESTING.md (all cURL commands)
 - **Test DB:** H2 in-memory (no MySQL needed for tests)
 
-### Experiment 9 – Spring Security
-- **Status:** ✅ Implemented
-- **Files:** SecurityConfig.java
+### Experiment 9 – Spring Security & Frontend Static Resources
+- **Status:** ✅ Implemented & Verified
+- **Files:** SecurityConfig.java, `src/main/resources/static/` (`login.html`, `index.html`, `css/style.css`, `js/*.js`), `FRONTEND_GUIDE.md`
 - **Credentials:** admin/campus123, student/learn456
+- **Static Access:** Permits `/`, `/index.html`, `/login.html`, `/favicon.ico`, `/error`, `/css/**`, `/js/**`, `/images/**`, and `PathRequest.toStaticResources().atCommonLocations()`
 
 ---
 
 ## Pending Actions (requires you to complete)
 
-1. **MySQL database setup** – Create `studentdb` database and set your password
-2. **Run `mvn test`** – Compile and test verification
-3. **Run the app** – Test live endpoints with cURL
-4. **GitHub push** – Create repo and push with meaningful commits
+1. **MySQL schema safety check & `student_id` `BIGINT` verification** – MySQL `MySQL80` is running on port 3306, but `DB_PASSWORD` is not set in the environment or `application-local.properties`, so automated access to `studentdb` was denied (`ERROR 1045`). Verify `studentdb` and run `ALTER TABLE course MODIFY COLUMN student_id BIGINT NOT NULL;` only if needed after checking existing data/FKs.
+2. **Run the app against live MySQL** – Set `DB_PASSWORD` (or create `application-local.properties`) and run `mvn spring-boot:run`
+3. **GitHub push** – Create repo and push with meaningful commits when ready
 
 ---
 
